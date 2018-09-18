@@ -47,7 +47,7 @@ func (sdk *SDK) RequestResource(token string, username string) (string, error) {
 		"token":     token,
 	}
 	dataBody, _ := json.Marshal(data)
-	encryptData, err := cfbEncrypt(sdk.PrivateKey, string(dataBody))
+	encryptData, err := CFBEncrypt(sdk.PrivateKey, string(dataBody))
 	if err != nil {
 		return "", err
 	}
@@ -73,7 +73,7 @@ func (sdk *SDK) RequestResource(token string, username string) (string, error) {
 	}
 	defer resp.Body.Close()
 
-	decryptResponseBody, err := cfbDecrypt(sdk.PrivateKey, string(encryptResponseBody))
+	decryptResponseBody, err := CFBDecrypt(sdk.PrivateKey, string(encryptResponseBody))
 	if err != nil {
 		return "", err
 	}
@@ -92,7 +92,7 @@ func (sdk *SDK) Verify(path string, method string, username string) (*VerityResu
 	}
 
 	body, _ := json.Marshal(&scope)
-	encryptBody, err := cfbEncryptBytes(sdk.PrivateKey, body)
+	encryptBody, err := CFBEncryptBytes(sdk.PrivateKey, body)
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +118,7 @@ func (sdk *SDK) Verify(path string, method string, username string) (*VerityResu
 	}
 	defer resp.Body.Close()
 
-	decryptResponseBody, err := cfbDecrypt(sdk.PrivateKey, string(encryptResponseBody))
+	decryptResponseBody, err := CFBDecrypt(sdk.PrivateKey, string(encryptResponseBody))
 	if err != nil {
 		return nil, err
 	}

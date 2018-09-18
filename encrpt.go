@@ -10,12 +10,12 @@ import (
 	"io"
 )
 
-func cfbEncryptBytes(keyStr string, cryptoBody []byte) (string, error) {
+func CFBEncryptBytes(keyStr string, cryptoBody []byte) (string, error) {
 	keyBytes := sha256.Sum256([]byte(keyStr))
 	return encrypt(keyBytes[:], cryptoBody)
 }
 
-func cfbEncrypt(keyStr string, cryptoText string) (string, error) {
+func CFBEncrypt(keyStr string, cryptoText string) (string, error) {
 	keyBytes := sha256.Sum256([]byte(keyStr))
 	return encrypt(keyBytes[:], []byte(cryptoText))
 }
@@ -41,7 +41,7 @@ func encrypt(key []byte, plaintext []byte) (string, error) {
 	return base64.StdEncoding.EncodeToString(ciphertext), nil
 }
 
-func cfbDecrypt(keyStr string, cryptoText string) (string, error) {
+func CFBDecrypt(keyStr string, cryptoText string) (string, error) {
 	keyBytes := sha256.Sum256([]byte(keyStr))
 	return decrypt(keyBytes[:], cryptoText)
 }
