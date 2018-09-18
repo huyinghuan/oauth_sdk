@@ -85,7 +85,7 @@ func (sdk *SDK) RequestResource(token string, username string) (string, error) {
 	return account.Username, nil
 }
 
-func (sdk *SDK) Verity(path string, method string, username string) (*VerityResult, error) {
+func (sdk *SDK) Verify(path string, method string, username string) (*VerityResult, error) {
 	scope := Scope{
 		Name: path,
 		Type: method,
@@ -133,4 +133,8 @@ func (sdk *SDK) Verity(path string, method string, username string) (*VerityResu
 		StatusCode: resp.StatusCode,
 		Scope:      authScope.Scope,
 	}, nil
+}
+
+func (sdk *SDK) GetAuthorizedURL() string {
+	return fmt.Sprintf("%s?client_id=%s&t=%d", sdk.Server+"/authorize", sdk.ClientID, time.Now().Unix())
 }
