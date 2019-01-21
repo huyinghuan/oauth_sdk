@@ -55,7 +55,7 @@ func (sdk *SDK) RequestResource(token string, username string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("client_id", sdk.ClientID)
+	req.Header.Set("client-id", sdk.ClientID)
 	req.Header.Set("account", username)
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -97,7 +97,7 @@ func (sdk *SDK) Verify(path string, method string, username string) (*VerityResu
 		return nil, err
 	}
 	req, err := http.NewRequest("POST", sdk.Server+"/authorize", bytes.NewBuffer([]byte(encryptBody)))
-	req.Header.Set("client_id", sdk.ClientID)
+	req.Header.Set("client-id", sdk.ClientID)
 	req.Header.Set("account", username)
 
 	client := &http.Client{}
